@@ -52,9 +52,9 @@ const PROJECTS = [
     accent: "Prototype",
   },
   {
-    title: "Team 26 — Hackathon Website",
+    title: "\n",
     blurb:
-      "Hackathon project built under tight time constraints. Demonstrates teamwork, rapid prototyping, and end-to-end shipping of a functional, deployed web experience.",
+      "Blood Donation Networking System\n\nA platform that connects blood donors with patients and hospitals in real time. Users can register as donors, search by blood group, and receive urgent location-based donation requests.",
     tech: ["HTML", "CSS", "JavaScript", "Vercel"],
     github: "https://github.com/anshikapandey1375-hue/team26",
     live: "https://team26-iota.vercel.app",
@@ -211,7 +211,7 @@ function Hero() {
           </Reveal>
           <Reveal delay={3}>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-soft">
-              First-year B.Tech CSE student (SGPA 9.2 · CGPA 9.28) with a foundation in C, Python, and the web. I care about thoughtful interfaces, accessible tooling, and the craft of shipping.
+              Second-year B.Tech CSE student with a foundation in C, Python, and the web. I care about thoughtful interfaces, accessible tooling, and the craft of shipping.
             </p>
           </Reveal>
           <Reveal delay={4}>
@@ -283,10 +283,10 @@ function About() {
           <Reveal delay={2}>
             <div className="space-y-5 text-[15px] leading-relaxed text-slate-soft">
               <p>
-                My current focus is twofold: deepen the fundamentals — algorithms, data, systems — and keep shipping small, real things on the web. Most of what I build starts as a question I can’t put down.
+                My current focus is two fold: deepen the fundamentals — algorithms, data, systems — and keep shipping small, real things on the web. Most of what I build starts as a question I can’t put down.
               </p>
               <p>
-                Outside class I anchor university events, volunteer with the tech crew at HackJKLU, and contribute to the Competition Programming Club. I’m actively looking for a semester-exchange or research opportunity in machine learning.
+                Outside class I anchor university events, volunteer ,coordinate  and contribute to the Competition Programming Club. I’m actively looking for a semester-exchange or research opportunity in machine learning.
               </p>
             </div>
           </Reveal>
@@ -296,7 +296,7 @@ function About() {
           {[
             { k: "9.28", v: "CGPA" },
             { k: "2025–29", v: "B.Tech CSE" },
-            { k: "4+", v: "Shipped Projects" },
+            { k: "3+", v: "Shipped Projects" },
             { k: "3", v: "Campus Roles" },
           ].map((s, i) => (
             <Reveal key={s.v} delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
@@ -323,9 +323,9 @@ function Education() {
               school: "JK Lakshmipat University",
               degree: "B.Tech, Computer Science Engineering",
               meta: "2025 — 2029 · Jaipur, Rajasthan",
-              highlight: "CGPA 9.28 · SGPA 9.2 · 0 backlogs",
+              highlight: "CGPA 9.28 · SGPA 9.38 · 0 backlogs",
               notes: [
-                "First-year coursework across Programming-I, Calculus, Design Thinking, and Communication.",
+                "First-year coursework across Python, C Programming, Linear Algebra and Differential equations, Digital Electronics and more.",
                 "Active in the Competition Programming Club and university hackathons.",
               ],
             },
