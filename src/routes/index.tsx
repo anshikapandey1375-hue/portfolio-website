@@ -180,66 +180,61 @@ function Nav({
 
 function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden pt-32 pb-24 lg:pt-44 lg:pb-32">
+    <section id="home" className="relative overflow-hidden pt-28 pb-20 lg:min-h-screen lg:pt-0 lg:pb-0">
       <div className="ambient" />
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-12 lg:px-10">
-        <div className="lg:col-span-7">
-          <Reveal>
-            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-slate-soft backdrop-blur">
-              <span className="size-1.5 rounded-full bg-gold" />
-              Available for Summer 2026 opportunities
-            </div>
-          </Reveal>
-          <Reveal delay={1}>
-            <h1 className="font-display text-[clamp(2.4rem,6.2vw,4.8rem)] leading-[1.02] tracking-tight">
-              Turning curiosity into <span className="italic text-gold">code</span>,
-              <br className="hidden sm:block" /> and ideas into impact.
-            </h1>
-          </Reveal>
-          <Reveal delay={2}>
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-slate-soft lg:text-[17px]">
-              A Computer Science undergraduate at JK Lakshmipat University, working at the intersection of machine learning, thoughtful interfaces, and social-impact engineering — quietly shipping small, real things on the web.
-            </p>
-          </Reveal>
-          <Reveal delay={3}>
-            <div className="mt-10 flex items-center gap-4">
-              <div className="h-px w-12 bg-ink/30" />
-              <span className="font-display text-2xl italic tracking-tight text-ink/90">
-                Anshika Pandey
-              </span>
-            </div>
-          </Reveal>
-          <Reveal delay={4}>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <a href={resumeAsset.url} download className="btn-primary">
-                <Download className="size-4" /> Download Resume
-              </a>
-              <a href="#projects" className="btn-ghost">
-                View Projects <ArrowUpRight className="arrow size-4" />
-              </a>
-              <a href="#contact" className="btn-ghost">
-                Contact <ArrowUpRight className="arrow size-4" />
-              </a>
-            </div>
-          </Reveal>
+      <div className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:min-h-screen lg:grid-cols-12 lg:gap-10 lg:px-10">
+        {/* LEFT — content */}
+        <div className="lg:col-span-7 xl:col-span-8">
+          <div className="rise rise-1 mb-10 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-[11px] uppercase tracking-[0.25em] text-slate-soft backdrop-blur">
+            <span className="size-1.5 rounded-full bg-gold animate-pulse" />
+            Available for Summer 2026
+          </div>
+
+          <h1 className="rise rise-2 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-tight">
+            Turning curiosity <br className="hidden sm:block" />
+            into <span className="italic text-gold">code</span>, and ideas
+            <br className="hidden sm:block" /> into <span className="italic">impact.</span>
+          </h1>
+
+          <p className="rise rise-3 mt-10 max-w-xl text-base leading-relaxed text-slate-soft lg:text-[17px]">
+            A Computer Science undergraduate at JK Lakshmipat University, working at the intersection of machine learning, thoughtful interfaces, and social-impact engineering — quietly shipping small, real things on the web.
+          </p>
+
+          <div className="rise rise-4 mt-10 flex items-center gap-4">
+            <div className="h-px w-12 bg-ink/30" />
+            <span className="font-display text-2xl italic tracking-tight text-ink/90">
+              Anshika Pandey
+            </span>
+          </div>
+
+          <div className="rise rise-5 mt-10 flex flex-wrap items-center gap-3">
+            <a href={resumeAsset.url} download className="btn-primary magnetic">
+              <Download className="size-4" /> Download Resume
+            </a>
+            <a href="#projects" className="btn-ghost magnetic">
+              View Projects <ArrowUpRight className="arrow size-4" />
+            </a>
+            <a href="#contact" className="btn-ghost magnetic">
+              Ask the Assistant <ArrowUpRight className="arrow size-4" />
+            </a>
+          </div>
         </div>
 
-        <div className="lg:col-span-5">
-          <Reveal delay={2}>
-            <figure className="group relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[28px] bg-white shadow-[0_30px_80px_-30px_rgba(15,23,42,0.35)] ring-1 ring-black/5">
-              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#f0e6cf] via-[#fafaf7] to-[#e8edf3]" />
-              <img
-                src={profileAsset.url}
-                alt="Portrait of Anshika Pandey"
-                className="img-zoom h-full w-full object-cover"
-                loading="eager"
-              />
-              <figcaption className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-full bg-white/85 px-4 py-2 text-xs text-ink backdrop-blur">
-                <span className="font-medium">Jaipur, India</span>
-                <span className="text-slate-soft">B.Tech CSE · 2025–29</span>
-              </figcaption>
-            </figure>
-          </Reveal>
+        {/* RIGHT — portrait, vertically centered */}
+        <div className="rise rise-3 lg:col-span-5 xl:col-span-4 lg:flex lg:justify-end">
+          <figure className="group floaty relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[28px] bg-white shadow-[0_40px_100px_-30px_rgba(15,23,42,0.4)] ring-1 ring-black/5 lg:max-w-[22rem]">
+            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#f0e6cf] via-[#fafaf7] to-[#e8edf3]" />
+            <img
+              src={profileAsset.url}
+              alt="Portrait of Anshika Pandey"
+              className="img-zoom h-full w-full object-cover"
+              loading="eager"
+            />
+            <figcaption className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-full bg-white/85 px-4 py-2 text-xs text-ink backdrop-blur">
+              <span className="font-medium">Jaipur, India</span>
+              <span className="text-slate-soft">B.Tech CSE · 2025–29</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
