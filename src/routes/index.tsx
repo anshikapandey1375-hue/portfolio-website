@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
-import { ArrowUpRight, Mail, Github, Linkedin, Download, Menu, X, Check, Phone, MapPin } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { ArrowUpRight, Mail, Github, Linkedin, Download, Menu, X, Phone, MapPin, Sparkles, Send } from "lucide-react";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport, type UIMessage } from "ai";
 import profileAsset from "@/assets/profile.asset.json";
 import resumeAsset from "@/assets/resume.asset.json";
 import { Reveal } from "@/components/Reveal";
