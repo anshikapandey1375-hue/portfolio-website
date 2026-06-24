@@ -149,8 +149,8 @@ function Nav({
             </a>
           ))}
         </nav>
-        <a href="#contact" className="hidden lg:inline-flex btn-primary !py-2.5 !px-4 text-xs">
-          Let’s talk <ArrowUpRight className="arrow size-4" />
+        <a href="#contact" className="hidden lg:inline-flex btn-primary magnetic !py-2.5 !px-4 text-xs">
+          Ask AI <ArrowUpRight className="arrow size-4" />
         </a>
         <button
           aria-label="Toggle menu"
