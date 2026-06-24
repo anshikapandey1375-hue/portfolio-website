@@ -185,25 +185,29 @@ function Hero() {
       <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-12 lg:px-10">
         <div className="lg:col-span-7">
           <Reveal>
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-slate-soft backdrop-blur">
+            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-slate-soft backdrop-blur">
               <span className="size-1.5 rounded-full bg-gold" />
               Available for Summer 2026 opportunities
             </div>
           </Reveal>
           <Reveal delay={1}>
-            <h1 className="font-display text-[clamp(2.6rem,7vw,5.5rem)] leading-[0.98] tracking-tight">
-              Anshika <span className="italic text-gold">Pandey</span>
+            <h1 className="font-display text-[clamp(2.4rem,6.2vw,4.8rem)] leading-[1.02] tracking-tight">
+              Turning curiosity into <span className="italic text-gold">code</span>,
+              <br className="hidden sm:block" /> and ideas into impact.
             </h1>
           </Reveal>
           <Reveal delay={2}>
-            <p className="mt-6 max-w-xl font-display text-xl text-ink/80 lg:text-2xl">
-              Computer Science student at JK Lakshmipat University, building software at the intersection of <em className="text-gold not-italic">machine learning</em> and social impact.
+            <p className="mt-8 max-w-xl text-base leading-relaxed text-slate-soft lg:text-[17px]">
+              A Computer Science undergraduate at JK Lakshmipat University, working at the intersection of machine learning, thoughtful interfaces, and social-impact engineering — quietly shipping small, real things on the web.
             </p>
           </Reveal>
           <Reveal delay={3}>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-soft">
-              Second-year B.Tech CSE student with a foundation in C, Python, and the web. I care about thoughtful interfaces, accessible tooling, and the craft of shipping.
-            </p>
+            <div className="mt-10 flex items-center gap-4">
+              <div className="h-px w-12 bg-ink/30" />
+              <span className="font-display text-2xl italic tracking-tight text-ink/90">
+                Anshika Pandey
+              </span>
+            </div>
           </Reveal>
           <Reveal delay={4}>
             <div className="mt-10 flex flex-wrap items-center gap-3">
