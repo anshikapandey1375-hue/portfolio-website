@@ -34,15 +34,6 @@ const PROJECTS = [
     accent: "Health · Social Impact",
   },
   {
-    title: "Blood Donation Networking System",
-    blurb:
-      "A platform that connects blood donors with patients and hospitals in real time. Users can register as donors, search by blood group, and receive urgent location-based donation requests.",
-    tech: ["Web App", "Location Matching", "Realtime Requests"],
-    github: "https://github.com/anshikapandey1375-hue/Blood-Donation-Networking-System",
-    live: null,
-    accent: "Healthcare · Networking",
-  },
-  {
     title: "Jugaad 2",
     blurb:
       "Iterative build extending the Jugaad initiative with a refined interface and deployed prototype — exploring lightweight, accessible tooling for first-mile users.",
@@ -52,13 +43,13 @@ const PROJECTS = [
     accent: "Prototype",
   },
   {
-    title: "\n",
+    title: "Blood Donation Networking System",
     blurb:
-      "Blood Donation Networking System\n\nA platform that connects blood donors with patients and hospitals in real time. Users can register as donors, search by blood group, and receive urgent location-based donation requests.",
+      "A platform that connects blood donors with patients and hospitals in real time. Users can register as donors, search by blood group, and receive urgent location-based donation requests.",
     tech: ["HTML", "CSS", "JavaScript", "Vercel"],
     github: "https://github.com/anshikapandey1375-hue/team26",
     live: "https://team26-iota.vercel.app",
-    accent: "Hackathon",
+    accent: "Healthcare · Hackathon",
   },
 ];
 
