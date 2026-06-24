@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
-import { ArrowUpRight, Mail, Github, Linkedin, Download, Menu, X, Check, Phone, MapPin } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { ArrowUpRight, Mail, Github, Linkedin, Download, Menu, X, Phone, MapPin, Sparkles, Send } from "lucide-react";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport, type UIMessage } from "ai";
 import profileAsset from "@/assets/profile.asset.json";
 import resumeAsset from "@/assets/resume.asset.json";
 import { Reveal } from "@/components/Reveal";
@@ -147,8 +149,8 @@ function Nav({
             </a>
           ))}
         </nav>
-        <a href="#contact" className="hidden lg:inline-flex btn-primary !py-2.5 !px-4 text-xs">
-          Let’s talk <ArrowUpRight className="arrow size-4" />
+        <a href="#contact" className="hidden lg:inline-flex btn-primary magnetic !py-2.5 !px-4 text-xs">
+          Ask AI <ArrowUpRight className="arrow size-4" />
         </a>
         <button
           aria-label="Toggle menu"
@@ -180,66 +182,61 @@ function Nav({
 
 function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden pt-32 pb-24 lg:pt-44 lg:pb-32">
+    <section id="home" className="relative overflow-hidden pt-28 pb-20 lg:min-h-screen lg:pt-0 lg:pb-0">
       <div className="ambient" />
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 lg:grid-cols-12 lg:px-10">
-        <div className="lg:col-span-7">
-          <Reveal>
-            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-slate-soft backdrop-blur">
-              <span className="size-1.5 rounded-full bg-gold" />
-              Available for Summer 2026 opportunities
-            </div>
-          </Reveal>
-          <Reveal delay={1}>
-            <h1 className="font-display text-[clamp(2.4rem,6.2vw,4.8rem)] leading-[1.02] tracking-tight">
-              Turning curiosity into <span className="italic text-gold">code</span>,
-              <br className="hidden sm:block" /> and ideas into impact.
-            </h1>
-          </Reveal>
-          <Reveal delay={2}>
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-slate-soft lg:text-[17px]">
-              A Computer Science undergraduate at JK Lakshmipat University, working at the intersection of machine learning, thoughtful interfaces, and social-impact engineering — quietly shipping small, real things on the web.
-            </p>
-          </Reveal>
-          <Reveal delay={3}>
-            <div className="mt-10 flex items-center gap-4">
-              <div className="h-px w-12 bg-ink/30" />
-              <span className="font-display text-2xl italic tracking-tight text-ink/90">
-                Anshika Pandey
-              </span>
-            </div>
-          </Reveal>
-          <Reveal delay={4}>
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <a href={resumeAsset.url} download className="btn-primary">
-                <Download className="size-4" /> Download Resume
-              </a>
-              <a href="#projects" className="btn-ghost">
-                View Projects <ArrowUpRight className="arrow size-4" />
-              </a>
-              <a href="#contact" className="btn-ghost">
-                Contact <ArrowUpRight className="arrow size-4" />
-              </a>
-            </div>
-          </Reveal>
+      <div className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:min-h-screen lg:grid-cols-12 lg:gap-10 lg:px-10">
+        {/* LEFT — content */}
+        <div className="lg:col-span-7 xl:col-span-8">
+          <div className="rise rise-1 mb-10 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-[11px] uppercase tracking-[0.25em] text-slate-soft backdrop-blur">
+            <span className="size-1.5 rounded-full bg-gold animate-pulse" />
+            Available for Summer 2026
+          </div>
+
+          <h1 className="rise rise-2 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-tight">
+            Turning curiosity <br className="hidden sm:block" />
+            into <span className="italic text-gold">code</span>, and ideas
+            <br className="hidden sm:block" /> into <span className="italic">impact.</span>
+          </h1>
+
+          <p className="rise rise-3 mt-10 max-w-xl text-base leading-relaxed text-slate-soft lg:text-[17px]">
+            A Computer Science undergraduate at JK Lakshmipat University, working at the intersection of machine learning, thoughtful interfaces, and social-impact engineering — quietly shipping small, real things on the web.
+          </p>
+
+          <div className="rise rise-4 mt-10 flex items-center gap-4">
+            <div className="h-px w-12 bg-ink/30" />
+            <span className="font-display text-2xl italic tracking-tight text-ink/90">
+              Anshika Pandey
+            </span>
+          </div>
+
+          <div className="rise rise-5 mt-10 flex flex-wrap items-center gap-3">
+            <a href={resumeAsset.url} download className="btn-primary magnetic">
+              <Download className="size-4" /> Download Resume
+            </a>
+            <a href="#projects" className="btn-ghost magnetic">
+              View Projects <ArrowUpRight className="arrow size-4" />
+            </a>
+            <a href="#contact" className="btn-ghost magnetic">
+              Ask the Assistant <ArrowUpRight className="arrow size-4" />
+            </a>
+          </div>
         </div>
 
-        <div className="lg:col-span-5">
-          <Reveal delay={2}>
-            <figure className="group relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[28px] bg-white shadow-[0_30px_80px_-30px_rgba(15,23,42,0.35)] ring-1 ring-black/5">
-              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#f0e6cf] via-[#fafaf7] to-[#e8edf3]" />
-              <img
-                src={profileAsset.url}
-                alt="Portrait of Anshika Pandey"
-                className="img-zoom h-full w-full object-cover"
-                loading="eager"
-              />
-              <figcaption className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-full bg-white/85 px-4 py-2 text-xs text-ink backdrop-blur">
-                <span className="font-medium">Jaipur, India</span>
-                <span className="text-slate-soft">B.Tech CSE · 2025–29</span>
-              </figcaption>
-            </figure>
-          </Reveal>
+        {/* RIGHT — portrait, vertically centered */}
+        <div className="rise rise-3 lg:col-span-5 xl:col-span-4 lg:flex lg:justify-end">
+          <figure className="group floaty relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[28px] bg-white shadow-[0_40px_100px_-30px_rgba(15,23,42,0.4)] ring-1 ring-black/5 lg:max-w-[22rem]">
+            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#f0e6cf] via-[#fafaf7] to-[#e8edf3]" />
+            <img
+              src={profileAsset.url}
+              alt="Portrait of Anshika Pandey"
+              className="img-zoom h-full w-full object-cover"
+              loading="eager"
+            />
+            <figcaption className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-full bg-white/85 px-4 py-2 text-xs text-ink backdrop-blur">
+              <span className="font-medium">Jaipur, India</span>
+              <span className="text-slate-soft">B.Tech CSE · 2025–29</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -480,85 +477,142 @@ function Achievements() {
   );
 }
 
+const SUGGESTED_QS = [
+  "Tell me about Anshika",
+  "What projects has she built?",
+  "What technologies does she know?",
+  "What are her achievements?",
+  "How can I contact her?",
+];
+
 function Contact() {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const transport = useRef(new DefaultChatTransport({ api: "/api/chat" })).current;
+  const { messages, sendMessage, status } = useChat({ transport });
+  const [input, setInput] = useState("");
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isLoading = status === "submitted" || status === "streaming";
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, status]);
+
+  function send(text: string) {
+    const t = text.trim();
+    if (!t || isLoading) return;
+    void sendMessage({ text: t });
+    setInput("");
+  }
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const name = String(fd.get("name") || "").trim();
-    const email = String(fd.get("email") || "").trim();
-    const message = String(fd.get("message") || "").trim();
-    const errs: Record<string, string> = {};
-    if (!name || name.length > 100) errs.name = "Please enter your name (1–100 chars).";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 255) errs.email = "Please enter a valid email.";
-    if (!message || message.length > 1500) errs.message = "Please enter a message (1–1500 chars).";
-    setErrors(errs);
-    if (Object.keys(errs).length) return;
-    setStatus("submitting");
-    const subject = encodeURIComponent(`Portfolio message from ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:anshika.pandey1375@gmail.com?subject=${subject}&body=${body}`;
-    setTimeout(() => setStatus("success"), 400);
+    send(input);
   }
 
   return (
     <section id="contact" className="relative py-28 lg:py-36 bg-white/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <SectionHeader kicker="Contact" title="Let’s start a conversation." lead="Open to internships, research roles, semester-exchange opportunities, and collaborations." />
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 lg:grid-cols-2">
+        <SectionHeader
+          kicker="Portfolio Assistant"
+          title="Ask anything about my work."
+          lead="A small AI assistant trained only on Anshika's verified portfolio — background, projects, skills, achievements, and contact."
+        />
+
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 lg:grid-cols-5">
+          {/* Contact rail */}
           <Reveal>
-            <div className="space-y-6">
-              <ContactRow
-                icon={<Mail className="size-4" />}
-                label="Email"
-                value="anshika.pandey1375@gmail.com"
-                href="mailto:anshika.pandey1375@gmail.com"
-              />
-              <ContactRow
-                icon={<Linkedin className="size-4" />}
-                label="LinkedIn"
-                value="linkedin.com/in/anshika-pandey-635286378"
-                href="https://www.linkedin.com/in/anshika-pandey-635286378"
-                external
-              />
-              <ContactRow
-                icon={<Github className="size-4" />}
-                label="GitHub"
-                value="github.com/anshikapandey1375-hue"
-                href="https://github.com/anshikapandey1375-hue"
-                external
-              />
-              <ContactRow
-                icon={<Phone className="size-4" />}
-                label="Phone"
-                value="+91 63676 33904"
-                href="tel:+916367633904"
-              />
-              <ContactRow
-                icon={<MapPin className="size-4" />}
-                label="Location"
-                value="Jaipur, Rajasthan, India"
-              />
+            <div className="space-y-4 lg:col-span-2">
+              <ContactRow icon={<Mail className="size-4" />} label="Email" value="anshika.pandey1375@gmail.com" href="mailto:anshika.pandey1375@gmail.com" />
+              <ContactRow icon={<Linkedin className="size-4" />} label="LinkedIn" value="linkedin.com/in/anshika-pandey-635286378" href="https://www.linkedin.com/in/anshika-pandey-635286378" external />
+              <ContactRow icon={<Github className="size-4" />} label="GitHub" value="github.com/anshikapandey1375-hue" href="https://github.com/anshikapandey1375-hue" external />
+              <ContactRow icon={<Phone className="size-4" />} label="Phone" value="+91 63676 33904" href="tel:+916367633904" />
+              <ContactRow icon={<MapPin className="size-4" />} label="Location" value="Jaipur, Rajasthan, India" />
             </div>
           </Reveal>
 
+          {/* Chat */}
           <Reveal delay={1}>
-            <form onSubmit={onSubmit} className="space-y-5 rounded-2xl border border-black/5 bg-white p-8">
-              <Field label="Your name" name="name" error={errors.name} />
-              <Field label="Email address" name="email" type="email" error={errors.email} />
-              <Field label="Message" name="message" textarea error={errors.message} />
-              <button type="submit" disabled={status === "submitting"} className="btn-primary w-full justify-center">
-                {status === "success" ? (
-                  <><Check className="size-4" /> Email opened — finish in your mail app</>
-                ) : status === "submitting" ? (
-                  "Opening…"
-                ) : (
-                  <>Send message <ArrowUpRight className="arrow size-4" /></>
+            <div className="flex h-[34rem] flex-col overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_30px_80px_-40px_rgba(15,23,42,0.3)] lg:col-span-3">
+              <div className="flex items-center gap-3 border-b border-black/5 px-5 py-4">
+                <span className="grid size-9 place-items-center rounded-full bg-ink text-paper">
+                  <Sparkles className="size-4 text-gold" />
+                </span>
+                <div>
+                  <div className="text-sm font-medium">Portfolio Assistant</div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-slate-soft">
+                    {isLoading ? "Typing…" : "Online"}
+                  </div>
+                </div>
+              </div>
+
+              <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-6">
+                {messages.length === 0 && (
+                  <div className="space-y-5">
+                    <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-[#fafaf7] px-4 py-3 text-sm leading-relaxed text-ink">
+                      Hi — I can answer questions about Anshika's background, education, projects, skills, and achievements. Try one of these:
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {SUGGESTED_QS.map((q) => (
+                        <button
+                          key={q}
+                          type="button"
+                          onClick={() => send(q)}
+                          className="magnetic rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-xs text-ink/80 hover:border-gold hover:text-ink"
+                        >
+                          {q}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 )}
-              </button>
-            </form>
+
+                {messages.map((m: UIMessage) => {
+                  const text = m.parts
+                    .map((p) => (p.type === "text" ? p.text : ""))
+                    .join("");
+                  const isUser = m.role === "user";
+                  return (
+                    <div key={m.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+                      <div
+                        className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                          isUser
+                            ? "rounded-tr-sm bg-ink text-paper"
+                            : "rounded-tl-sm bg-[#fafaf7] text-ink"
+                        }`}
+                      >
+                        {text}
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {status === "submitted" && (
+                  <div className="flex justify-start">
+                    <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm bg-[#fafaf7] px-4 py-3 text-ink/60">
+                      <span className="typing-dot size-1.5 rounded-full bg-ink/50" />
+                      <span className="typing-dot size-1.5 rounded-full bg-ink/50" />
+                      <span className="typing-dot size-1.5 rounded-full bg-ink/50" />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-black/5 bg-white p-3">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask about projects, skills, achievements…"
+                  className="flex-1 rounded-full border border-black/10 bg-[#fafaf7] px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:bg-white focus:ring-4 focus:ring-[#c8a96b]/15"
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading || !input.trim()}
+                  aria-label="Send"
+                  className="magnetic grid size-11 shrink-0 place-items-center rounded-full bg-ink text-paper transition-colors hover:bg-[#1e293b] disabled:opacity-50"
+                >
+                  <Send className="size-4" />
+                </button>
+              </form>
+            </div>
           </Reveal>
         </div>
       </div>
@@ -585,26 +639,6 @@ function ContactRow({
     <a href={href} target="_blank" rel="noopener noreferrer">{content}</a>
   ) : (
     <a href={href}>{content}</a>
-  );
-}
-
-function Field({
-  label, name, type = "text", textarea, error,
-}: { label: string; name: string; type?: string; textarea?: boolean; error?: string }) {
-  const base =
-    "peer w-full rounded-lg border border-black/10 bg-[#fafaf7] px-4 pt-6 pb-2 text-sm outline-none transition-all focus:border-gold focus:bg-white focus:ring-4 focus:ring-[#c8a96b]/15";
-  return (
-    <label className="relative block">
-      {textarea ? (
-        <textarea name={name} rows={5} placeholder=" " className={base} />
-      ) : (
-        <input name={name} type={type} placeholder=" " className={base} />
-      )}
-      <span className="pointer-events-none absolute left-4 top-2 text-[10px] uppercase tracking-[0.2em] text-slate-soft">
-        {label}
-      </span>
-      {error && <span className="mt-1 block text-xs text-destructive">{error}</span>}
-    </label>
   );
 }
 

@@ -151,4 +151,33 @@
   }
 
   .marquee-fade { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+
+  /* Premium load animation */
+  @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+  .rise { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
+  .rise-1 { animation-delay: .05s; }
+  .rise-2 { animation-delay: .15s; }
+  .rise-3 { animation-delay: .28s; }
+  .rise-4 { animation-delay: .42s; }
+  .rise-5 { animation-delay: .56s; }
+  .rise-6 { animation-delay: .7s; }
+
+  /* Staggered char/word reveal */
+  @keyframes wordIn { from { opacity: 0; transform: translateY(0.5em); } to { opacity: 1; transform: none; } }
+  .word-stagger > span { display: inline-block; opacity: 0; animation: wordIn .9s cubic-bezier(.2,.7,.2,1) forwards; }
+
+  /* Magnetic / interactive */
+  .magnetic { transition: transform .4s cubic-bezier(.2,.7,.2,1); will-change: transform; }
+  .magnetic:hover { transform: translateY(-3px) scale(1.02); }
+  .magnetic:active { transform: translateY(0) scale(.98); transition-duration: .12s; }
+
+  /* Typing dots */
+  @keyframes blink { 0%, 80%, 100% { opacity: .2; } 40% { opacity: 1; } }
+  .typing-dot { animation: blink 1.4s infinite both; }
+  .typing-dot:nth-child(2) { animation-delay: .2s; }
+  .typing-dot:nth-child(3) { animation-delay: .4s; }
+
+  /* Float for hero image */
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .floaty { animation: floaty 8s ease-in-out infinite; }
 }
