@@ -506,7 +506,7 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="relative py-28 lg:py-36 bg-white/60">
+    <section id="contact" className="relative scroll-mt-24 py-28 lg:py-36 bg-white/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader
           kicker="Portfolio Assistant"
