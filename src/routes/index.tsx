@@ -260,7 +260,7 @@ function SectionHeader({ kicker, title, lead }: { kicker: string; title: string;
 
 function About() {
   return (
-    <section id="about" className="relative py-28 lg:py-36">
+    <section id="about" className="relative scroll-mt-24 py-28 lg:py-36">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="About" title="A student, a builder, a beginner with intent." />
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-3">
