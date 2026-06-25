@@ -183,7 +183,7 @@ function Nav({
 
 function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden pt-28 pb-20 md:min-h-screen md:pt-0 md:pb-0">
+    <section id="home" className="relative overflow-hidden pt-28 pb-20 md:min-h-screen md:pt-24 md:pb-16">
       <div className="ambient" />
       <NetworkCanvas className="opacity-[0.55]" />
       <div className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl grid-cols-1 items-center gap-12 px-6 md:min-h-screen md:grid-cols-12 md:gap-8 md:px-8 lg:gap-12 lg:px-10">
