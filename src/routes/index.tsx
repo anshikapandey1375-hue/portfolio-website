@@ -101,7 +101,7 @@ function Portfolio() {
   }, []);
 
   return (
-    <main className="grain relative min-h-screen">
+    <main className="grain relative min-h-screen overflow-x-clip">
       <Nav active={active} scrolled={scrolled} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Hero />
       <About />
