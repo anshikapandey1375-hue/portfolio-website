@@ -423,7 +423,7 @@ function Projects() {
 
 function Skills() {
   return (
-    <section id="skills" className="relative py-28 lg:py-36 bg-white/60">
+    <section id="skills" className="relative scroll-mt-24 py-28 lg:py-36 bg-white/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="Toolkit" title="Skills" lead="What I work with today, and what I’m actively sharpening." />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
