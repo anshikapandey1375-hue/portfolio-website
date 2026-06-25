@@ -6,6 +6,7 @@ import { DefaultChatTransport, type UIMessage } from "ai";
 import profileAsset from "@/assets/profile.asset.json";
 import resumeAsset from "@/assets/resume.asset.json";
 import { Reveal } from "@/components/Reveal";
+import { NetworkCanvas } from "@/components/NetworkCanvas";
 
 export const Route = createFileRoute("/")({
   head: () => ({
