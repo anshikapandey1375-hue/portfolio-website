@@ -187,10 +187,8 @@ function Hero() {
       <div className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:min-h-screen lg:grid-cols-12 lg:gap-10 lg:px-10">
         {/* LEFT — content */}
         <div className="lg:col-span-7 xl:col-span-8">
-          <div className="rise rise-1 mb-10 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/60 px-4 py-1.5 text-[11px] uppercase tracking-[0.25em] text-slate-soft backdrop-blur">
-            <span className="size-1.5 rounded-full bg-gold animate-pulse" />
-            Available for Summer 2026
-          </div>
+
+
 
           <h1 className="rise rise-2 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-tight">
             Turning curiosity <br className="hidden sm:block" />
