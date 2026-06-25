@@ -101,7 +101,7 @@ function Portfolio() {
   }, []);
 
   return (
-    <main className="grain relative min-h-screen">
+    <main className="grain relative min-h-screen overflow-x-clip">
       <Nav active={active} scrolled={scrolled} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Hero />
       <About />
@@ -183,7 +183,7 @@ function Nav({
 
 function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden pt-28 pb-20 md:min-h-screen md:pt-0 md:pb-0">
+    <section id="home" className="relative overflow-hidden pt-28 pb-20 md:min-h-screen md:pt-24 md:pb-16">
       <div className="ambient" />
       <NetworkCanvas className="opacity-[0.55]" />
       <div className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl grid-cols-1 items-center gap-12 px-6 md:min-h-screen md:grid-cols-12 md:gap-8 md:px-8 lg:gap-12 lg:px-10">
@@ -260,7 +260,7 @@ function SectionHeader({ kicker, title, lead }: { kicker: string; title: string;
 
 function About() {
   return (
-    <section id="about" className="relative py-28 lg:py-36">
+    <section id="about" className="relative scroll-mt-24 py-28 lg:py-36">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="About" title="A student, a builder, a beginner with intent." />
         <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-3">
@@ -303,7 +303,7 @@ function About() {
 
 function Education() {
   return (
-    <section id="education" className="relative py-28 lg:py-36 bg-white/60">
+    <section id="education" className="relative scroll-mt-24 py-28 lg:py-36 bg-white/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="Education" title="Academics" />
         <div className="mx-auto max-w-4xl space-y-8">
@@ -362,7 +362,7 @@ function Education() {
 
 function Projects() {
   return (
-    <section id="projects" className="relative py-28 lg:py-36">
+    <section id="projects" className="relative scroll-mt-24 py-28 lg:py-36">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader
           kicker="Selected Work"
@@ -423,7 +423,7 @@ function Projects() {
 
 function Skills() {
   return (
-    <section id="skills" className="relative py-28 lg:py-36 bg-white/60">
+    <section id="skills" className="relative scroll-mt-24 py-28 lg:py-36 bg-white/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="Toolkit" title="Skills" lead="What I work with today, and what I’m actively sharpening." />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -450,7 +450,7 @@ function Skills() {
 
 function Achievements() {
   return (
-    <section id="achievements" className="relative py-28 lg:py-36">
+    <section id="achievements" className="relative scroll-mt-24 py-28 lg:py-36">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="Recognition" title="Achievements & Roles" />
         <div className="mx-auto max-w-3xl">
@@ -506,7 +506,7 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="relative py-28 lg:py-36 bg-white/60">
+    <section id="contact" className="relative scroll-mt-24 py-28 lg:py-36 bg-white/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader
           kicker="Portfolio Assistant"
