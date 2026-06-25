@@ -303,7 +303,7 @@ function About() {
 
 function Education() {
   return (
-    <section id="education" className="relative py-28 lg:py-36 bg-white/60">
+    <section id="education" className="relative scroll-mt-24 py-28 lg:py-36 bg-white/60">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="Education" title="Academics" />
         <div className="mx-auto max-w-4xl space-y-8">
