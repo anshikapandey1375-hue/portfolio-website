@@ -183,15 +183,13 @@ function Nav({
 
 function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden pt-28 pb-20 lg:min-h-screen lg:pt-0 lg:pb-0">
+    <section id="home" className="relative overflow-hidden pt-28 pb-20 md:min-h-screen md:pt-0 md:pb-0">
       <div className="ambient" />
-      <div className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:min-h-screen lg:grid-cols-12 lg:gap-10 lg:px-10">
+      <NetworkCanvas className="opacity-[0.55]" />
+      <div className="relative z-10 mx-auto grid min-h-[88vh] max-w-7xl grid-cols-1 items-center gap-12 px-6 md:min-h-screen md:grid-cols-12 md:gap-8 md:px-8 lg:gap-12 lg:px-10">
         {/* LEFT — content */}
-        <div className="lg:col-span-7 xl:col-span-8">
-
-
-
-          <h1 className="rise rise-2 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-tight">
+        <div className="md:col-span-7 xl:col-span-8">
+          <h1 className="rise rise-2 font-display text-[clamp(2.4rem,6.4vw,5.6rem)] leading-[0.98] tracking-tight">
             Turning curiosity <br className="hidden sm:block" />
             into <span className="italic text-gold">code</span>, and ideas
             <br className="hidden sm:block" /> into <span className="italic">impact.</span>
@@ -221,9 +219,9 @@ function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — portrait, vertically centered */}
-        <div className="rise rise-3 lg:col-span-5 xl:col-span-4 lg:flex lg:justify-end">
-          <figure className="group floaty relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[28px] bg-white shadow-[0_40px_100px_-30px_rgba(15,23,42,0.4)] ring-1 ring-black/5 lg:max-w-[22rem]">
+        {/* RIGHT — portrait, vertically centered, pinned right */}
+        <div className="rise rise-3 md:col-span-5 xl:col-span-4 flex justify-center md:justify-end">
+          <figure className="group floaty relative aspect-[4/5] w-full max-w-[18rem] overflow-hidden rounded-[28px] bg-white shadow-[0_40px_100px_-30px_rgba(15,23,42,0.4)] ring-1 ring-black/5 sm:max-w-sm md:max-w-[20rem] lg:max-w-[22rem]">
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#f0e6cf] via-[#fafaf7] to-[#e8edf3]" />
             <img
               src={profileAsset.url}
