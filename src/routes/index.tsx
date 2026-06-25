@@ -450,7 +450,7 @@ function Skills() {
 
 function Achievements() {
   return (
-    <section id="achievements" className="relative py-28 lg:py-36">
+    <section id="achievements" className="relative scroll-mt-24 py-28 lg:py-36">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="Recognition" title="Achievements & Roles" />
         <div className="mx-auto max-w-3xl">
