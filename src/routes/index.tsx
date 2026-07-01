@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowUpRight, Mail, Github, Linkedin, Download, Menu, X, Phone, MapPin, Sparkles, Send } from "lucide-react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import profileAsset from "@/assets/profile.asset.json";
+import profileImage from "@/assets/WhatsApp Image 2026-06-23 at 22.47.32.jpeg";
 import resumeAsset from "@/assets/resume.asset.json";
 import { Reveal } from "@/components/Reveal";
 import { NetworkCanvas } from "@/components/NetworkCanvas";
@@ -15,8 +15,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Portfolio of Anshika Pandey, B.Tech Computer Science student at JK Lakshmipat University. Projects in web development, machine learning, and social-impact technology." },
       { property: "og:title", content: "Anshika Pandey — Portfolio" },
       { property: "og:description", content: "B.Tech CSE student at JK Lakshmipat University. Selected projects, achievements, and contact." },
-      { property: "og:image", content: profileAsset.url },
-      { name: "twitter:image", content: profileAsset.url },
+      { property: "og:image", content: profileImage },
+      { name: "twitter:image", content: profileImage },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -49,9 +49,9 @@ const PROJECTS = [
     title: "Blood Donation Networking System",
     blurb:
       "A platform that connects blood donors with patients and hospitals in real time. Users can register as donors, search by blood group, and receive urgent location-based donation requests.",
-    tech: ["HTML", "CSS", "JavaScript", "Vercel"],
+    tech: ["HTML", "CSS", "JavaScript", "Render"],
     github: "https://github.com/anshikapandey1375-hue/team26",
-    live: "https://team26-iota.vercel.app",
+    live: "https://blood-donation-networking-system.onrender.com",
     accent: "Healthcare · Hackathon",
   },
 ];
@@ -224,7 +224,7 @@ function Hero() {
           <figure className="group floaty relative aspect-[4/5] w-full max-w-[18rem] overflow-hidden rounded-[28px] bg-white shadow-[0_40px_100px_-30px_rgba(15,23,42,0.4)] ring-1 ring-black/5 sm:max-w-sm md:max-w-[20rem] lg:max-w-[22rem]">
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#f0e6cf] via-[#fafaf7] to-[#e8edf3]" />
             <img
-              src={profileAsset.url}
+              src={profileImage}
               alt="Portrait of Anshika Pandey"
               className="img-zoom h-full w-full object-cover"
               loading="eager"
@@ -263,14 +263,14 @@ function About() {
     <section id="about" className="relative scroll-mt-24 py-28 lg:py-36">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <SectionHeader kicker="About" title="A student, a builder, a beginner with intent." />
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 md:items-start md:gap-12 lg:gap-16">
           <Reveal delay={1}>
-            <p className="font-display text-2xl leading-snug lg:col-span-2 lg:text-3xl">
+            <p className="font-display text-2xl leading-snug md:pr-6 lg:text-3xl">
               I’m an undergraduate at JK Lakshmipat University, drawn to the parts of computer science where careful engineering meets people’s everyday lives — health, access, learning.
             </p>
           </Reveal>
           <Reveal delay={2}>
-            <div className="space-y-5 text-[15px] leading-relaxed text-slate-soft">
+            <div className="space-y-5 text-[15px] leading-relaxed text-slate-soft md:pl-6">
               <p>
                 My current focus is two fold: deepen the fundamentals — algorithms, data, systems — and keep shipping small, real things on the web. Most of what I build starts as a question I can’t put down.
               </p>
@@ -329,7 +329,7 @@ function Education() {
               school: "Maheshwari Public School",
               degree: "Class X — CBSE",
               meta: "2023 · Jaipur",
-              highlight: "94.5%",
+              highlight: "94.6%",
               notes: ["Awarded by Rajasthan Patrika for academic excellence."],
             },
           ].map((e, i) => (
@@ -385,6 +385,9 @@ function Projects() {
                 <div className="flex flex-1 flex-col gap-5 p-7">
                   <h3 className="font-display text-2xl tracking-tight">{p.title}</h3>
                   <p className="text-sm leading-relaxed text-slate-soft">{p.blurb}</p>
+                  {p.title === "Blood Donation Networking System" ? (
+                    <p className="text-xs font-medium text-gold">Note: Live deployment available on Render.</p>
+                  ) : null}
                   <div className="flex flex-wrap gap-2">
                     {p.tech.map((t) => (
                       <span key={t} className="rounded-full border border-black/10 bg-[#fafaf7] px-3 py-1 text-[11px] tracking-wide text-ink/70">
@@ -493,7 +496,7 @@ function Contact() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, status]);
 
-  function send(text: string) {
+  function handleSend(text: string) {
     const t = text.trim();
     if (!t || isLoading) return;
     void sendMessage({ text: t });
@@ -502,8 +505,10 @@ function Contact() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    send(input);
+    handleSend(input);
   }
+
+  const showSuggestions = messages.length === 0 || (messages[messages.length - 1]?.role === "assistant" && !isLoading);
 
   return (
     <section id="contact" className="relative scroll-mt-24 py-28 lg:py-36 bg-white/60">
@@ -514,10 +519,10 @@ function Contact() {
           lead="A small AI assistant trained only on Anshika's verified portfolio — background, projects, skills, achievements, and contact."
         />
 
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 lg:grid-cols-5">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 xl:gap-12">
           {/* Contact rail */}
           <Reveal>
-            <div className="space-y-4 lg:col-span-2">
+            <div className="space-y-4 lg:sticky lg:top-24 lg:self-start">
               <ContactRow icon={<Mail className="size-4" />} label="Email" value="anshika.pandey1375@gmail.com" href="mailto:anshika.pandey1375@gmail.com" />
               <ContactRow icon={<Linkedin className="size-4" />} label="LinkedIn" value="linkedin.com/in/anshika-pandey-635286378" href="https://www.linkedin.com/in/anshika-pandey-635286378" external />
               <ContactRow icon={<Github className="size-4" />} label="GitHub" value="github.com/anshikapandey1375-hue" href="https://github.com/anshikapandey1375-hue" external />
@@ -528,7 +533,7 @@ function Contact() {
 
           {/* Chat */}
           <Reveal delay={1}>
-            <div className="flex h-[34rem] flex-col overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_30px_80px_-40px_rgba(15,23,42,0.3)] lg:col-span-3">
+            <div className="flex h-[34rem] flex-col overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_30px_80px_-40px_rgba(15,23,42,0.3)]">
               <div className="flex items-center gap-3 border-b border-black/5 px-5 py-4">
                 <span className="grid size-9 place-items-center rounded-full bg-ink text-paper">
                   <Sparkles className="size-4 text-gold" />
@@ -543,22 +548,8 @@ function Contact() {
 
               <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-6">
                 {messages.length === 0 && (
-                  <div className="space-y-5">
-                    <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-[#fafaf7] px-4 py-3 text-sm leading-relaxed text-ink">
-                      Hi — I can answer questions about Anshika's background, education, projects, skills, and achievements. Try one of these:
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {SUGGESTED_QS.map((q) => (
-                        <button
-                          key={q}
-                          type="button"
-                          onClick={() => send(q)}
-                          className="magnetic rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-xs text-ink/80 hover:border-gold hover:text-ink"
-                        >
-                          {q}
-                        </button>
-                      ))}
-                    </div>
+                  <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-[#fafaf7] px-4 py-3 text-sm leading-relaxed text-ink">
+                    Hi — I can answer questions about Anshika's background, education, projects, skills, and achievements. Try one of these:
                   </div>
                 )}
 
@@ -581,6 +572,26 @@ function Contact() {
                     </div>
                   );
                 })}
+
+                {showSuggestions && (
+                  <div className="space-y-3">
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-slate-soft">
+                      Suggested questions
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {SUGGESTED_QS.map((q) => (
+                        <button
+                          key={q}
+                          type="button"
+                          onClick={() => handleSend(q)}
+                          className="magnetic rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-xs text-ink/80 hover:border-gold hover:text-ink"
+                        >
+                          {q}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {status === "submitted" && (
                   <div className="flex justify-start">
@@ -643,7 +654,7 @@ function Footer() {
   return (
     <footer className="border-t border-black/5 py-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-xs text-slate-soft lg:flex-row lg:px-10">
-        <div>© {new Date().getFullYear()} Anshika Pandey. Built with care in Jaipur.</div>
+        <div>© {new Date().getFullYear()} Anshika Pandey.</div>
         <div className="flex items-center gap-5">
           <a href="https://github.com/anshikapandey1375-hue" target="_blank" rel="noopener noreferrer" className="gold-underline">GitHub</a>
           <a href="https://www.linkedin.com/in/anshika-pandey-635286378" target="_blank" rel="noopener noreferrer" className="gold-underline">LinkedIn</a>

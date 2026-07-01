@@ -1,65 +1,105 @@
-import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { createFileRoute } from "@tanstack/react-router";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { createUIMessageStream, createUIMessageStreamResponse, type UIMessage } from "ai";
 
-const KNOWLEDGE = `
-You are the Portfolio Assistant for Anshika Pandey's personal website. Answer ONLY using the verified facts below. If a question isn't covered, respond exactly: "Sorry, I don't currently have verified information about that. Please contact Anshika directly."
+const DEFAULT_RESPONSE =
+  "Sorry, I don't currently have verified information about that. Please contact Anshika directly.";
 
-Be warm, concise, and conversational. Never invent details, dates, grades, projects, or contacts.
+function getQuestionFromMessages(messages: UIMessage[]) {
+  const lastUserMessage = [...messages].reverse().find((message) => message.role === "user");
+  if (!lastUserMessage) return "";
+  return lastUserMessage.parts
+    .map((part) => (part.type === "text" ? part.text : ""))
+    .join("")
+    .trim();
+}
 
-# About
-- Anshika Pandey, Second-year B.Tech Computer Science Engineering student at JK Lakshmipat University, Jaipur (2025–2029).
-- Foundation in C, Python, and the web. Interested in machine learning, thoughtful interfaces, and social-impact engineering.
-- Available for Summer 2026 opportunities — internships, research, and semester-exchange.
+function answerQuestion(question: string) {
+  const normalized = question.toLowerCase().trim();
 
-# Education
-- JK Lakshmipat University — B.Tech CSE, 2025–2029. CGPA 9.28, SGPA 9.38, 0 backlogs. Active in Competition Programming Club and university hackathons.
-- Maheshwari Public School — Class XII CBSE (2025), 86.5% (Best of 4: 90.75%), Science stream.
-- Maheshwari Public School — Class X CBSE (2023), 94.5%. Awarded by Rajasthan Patrika for academic excellence.
+  if (/(who|tell me about|about|introduce).*(anshika|her|you)/.test(normalized)) {
+    return (
+      "Anshika Pandey is a B.Tech Computer Science Engineering student at JK Lakshmipat University in Jaipur (2025–2029). " +
+      "She works at the intersection of machine learning, thoughtful interfaces, and social-impact engineering, with a foundation in C, Python, and web development."
+    );
+  }
 
-# Projects
-1. Asha Jugaad Diagnostics — AI-based health triage platform for ASHA workers in rural India: patient assessment, pregnancy-risk detection, emergency response, multilingual real-time support. Tech: React, AI Triage, Multilingual, Real-time. GitHub: github.com/anshikapandey1375-hue/asha-jugaad-diagnostics. Live: asha-jugaad-diagnostics.vercel.app.
-2. Jugaad 2 — Iterative build extending the Jugaad initiative with refined UI and deployed prototype; lightweight accessible tooling. Tech: React, Vercel, UI Iteration. GitHub: github.com/anshikapandey1375-hue/jugaad2. Live: jugaad2.vercel.app.
-3. Blood Donation Networking System — Connects donors with patients and hospitals in real time; register as donor, search by blood group, location-based urgent requests. Tech: HTML, CSS, JavaScript, Vercel. GitHub: github.com/anshikapandey1375-hue/team26. Live: team26-iota.vercel.app.
+  if (/^(skills?|what are (her )?(skills|technologies)|technology|technologies|tools?)$/.test(normalized)) {
+    return (
+      "Her verified skills include programming in C and Python, web development with HTML, CSS, and JavaScript, and tools like VS Code, Git & GitHub, and Vercel. " +
+      "She also emphasizes problem solving, programming fundamentals, and algorithmic thinking."
+    );
+  }
 
-# Skills
-- Programming Languages: C, Python
-- Web: HTML, CSS, JavaScript (learning)
-- Tools: VS Code, Git & GitHub, Vercel
-- Core: Problem Solving, Programming Fundamentals, Algorithmic Thinking
+  if (/(what|which).*(technolog|tool|skill|know|use)/.test(normalized)) {
+    return (
+      "Her verified skills include programming in C and Python, web development with HTML, CSS, and JavaScript, and tools like VS Code, Git & GitHub, and Vercel. " +
+      "She also emphasizes problem solving, programming fundamentals, and algorithmic thinking."
+    );
+  }
 
-# Achievements & Roles
-- 2025 — Academic Excellence Award.
-- Rajasthan Patrika Recognition for academic excellence.
-- Best Singer Award (extracurricular).
-- 2025 — IC Member, Competition Programming Club, JK Lakshmipat University.
-- 2025 — Anchor, Sarang 2025 (university's flagship cultural event).
-- 2025 — Volunteer, HackJKLU v5.0 (Technical & Support Committee).
+  if (/(what|which).*(projects|built|work|portfolio)|^projects?$/.test(normalized)) {
+    return (
+      "She has built three featured projects: Asha Jugaad Diagnostics, an AI-based health triage platform for ASHA workers; Jugaad 2, a refined prototype exploring accessible tooling; " +
+      "and a Blood Donation Networking System that connects donors with patients and hospitals in real time."
+    );
+  }
 
-# Contact
-- Email: anshika.pandey1375@gmail.com
-- LinkedIn: linkedin.com/in/anshika-pandey-635286378
-- GitHub: github.com/anshikapandey1375-hue
-- Phone: +91 63676 33904
-- Location: Jaipur, Rajasthan, India
-`;
+  if (/^(education|academics?|school|college|university)$/.test(normalized) || /(education|academics?|school|college|university)/.test(normalized)) {
+    return (
+      "Anshika studies B.Tech Computer Science Engineering at JK Lakshmipat University in Jaipur (2025–2029). " +
+      "She completed strong first-year coursework in Python, C Programming, Linear Algebra, Differential Equations, and Digital Electronics, and is active in the Competition Programming Club and university hackathons."
+    );
+  }
+
+  if (/(what|which).*(achievements|award|recognition|roles|experience)|^(achievements?|awards?|recognition|roles?)$/.test(normalized)) {
+    return (
+      "Her achievements include an Academic Excellence Award in 2025, Rajasthan Patrika recognition for academic excellence, Best Singer Award, and leadership roles such as IC Member of the Competition Programming Club, anchor for Sarang 2025, and volunteer for HackJKLU v5.0."
+    );
+  }
+
+  if (/(how|where|can i).*(contact|reach|email|linkedin|github|phone)|^(contact|reach|email|linkedin|github|phone)$/.test(normalized)) {
+    return (
+      "You can contact Anshika by email at anshika.pandey1375@gmail.com, on LinkedIn at linkedin.com/in/anshika-pandey-635286378, or on GitHub at github.com/anshikapandey1375-hue."
+    );
+  }
+
+  if (/^(hi|hello|hey|what's up|good morning|good evening)/.test(normalized)) {
+    return "Hi! I can answer questions about Anshika's background, projects, skills, achievements, and contact details. Ask me anything from her portfolio.";
+  }
+
+  if (normalized.length === 0) {
+    return DEFAULT_RESPONSE;
+  }
+
+  return DEFAULT_RESPONSE;
+}
 
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
         const { messages } = (await request.json()) as { messages?: UIMessage[] };
-        if (!Array.isArray(messages)) return new Response("Messages required", { status: 400 });
-        const key = process.env.LOVABLE_API_KEY;
-        if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
+        if (!Array.isArray(messages)) {
+          return new Response("Messages required", { status: 400 });
+        }
 
-        const gateway = createLovableAiGatewayProvider(key);
-        const result = streamText({
-          model: gateway("google/gemini-3-flash-preview"),
-          system: KNOWLEDGE,
-          messages: await convertToModelMessages(messages),
+        const question = getQuestionFromMessages(messages);
+        const answer = answerQuestion(question);
+        const stream = createUIMessageStream({
+          execute: async ({ writer }) => {
+            const id = crypto.randomUUID();
+            writer.write({ type: "text-start", id });
+            writer.write({ type: "text-delta", id, delta: answer });
+            writer.write({ type: "text-end", id });
+          },
+          originalMessages: messages,
         });
-        return result.toUIMessageStreamResponse({ originalMessages: messages });
+
+        return createUIMessageStreamResponse({
+          status: 200,
+          statusText: "OK",
+          stream,
+        });
       },
     },
   },
