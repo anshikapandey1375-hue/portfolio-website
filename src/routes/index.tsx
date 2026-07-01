@@ -4,7 +4,7 @@ import { ArrowUpRight, Mail, Github, Linkedin, Download, Menu, X, Phone, MapPin,
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import profileImage from "@/assets/WhatsApp Image 2026-06-23 at 22.47.32.jpeg";
-import resumeAsset from "@/assets/resume.asset.json";
+import resumePdf from "@/assets/CV_ANSHIKA_PANDEY.pdf";
 import { Reveal } from "@/components/Reveal";
 import { NetworkCanvas } from "@/components/NetworkCanvas";
 
@@ -207,7 +207,7 @@ function Hero() {
           </div>
 
           <div className="rise rise-5 mt-10 flex flex-wrap items-center gap-3">
-            <a href={resumeAsset.url} download className="btn-primary magnetic">
+            <a href={resumePdf} download="CV_ANSHIKA_PANDEY.pdf" className="btn-primary magnetic">
               <Download className="size-4" /> Download Resume
             </a>
             <a href="#projects" className="btn-ghost magnetic">
