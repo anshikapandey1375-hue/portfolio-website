@@ -13,14 +13,8 @@ export default defineConfig({
     server: { entry: "server" },
   },
   nitro: {
-    // Override default Cloudflare preset for Vercel Node.js runtime
-    preset: "node-server",
-    // Configure output directory for Vercel
-    output: {
-      dir: ".output",
-      serverDir: ".output/server",
-      publicDir: ".output/public",
-    },
+    // Use Vercel-specific preset for proper deployment
+    preset: "vercel",
   },
   vite: {
     ssr: {
