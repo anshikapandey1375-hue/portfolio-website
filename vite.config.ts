@@ -12,7 +12,16 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  nitro: true,
+  nitro: {
+    // Override default Cloudflare preset for Vercel Node.js runtime
+    preset: "node-server",
+    // Configure output directory for Vercel
+    output: {
+      dir: ".output",
+      serverDir: ".output/server",
+      publicDir: ".output/public",
+    },
+  },
   vite: {
     ssr: {
       noExternal: ["recharts"],
